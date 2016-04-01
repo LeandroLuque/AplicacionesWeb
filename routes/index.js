@@ -5,7 +5,6 @@ var router = express.Router();
 /* GET home page. */
 router.get('/data', function(req, res, next) {
 	var db = req.db;
-	var data;
 	db.open(function(error,client){
 
 		collection = db.collection('peliculas');
