@@ -10,7 +10,7 @@ var server = new mongodb.Server("localhost", 27017, {});
 var db = new mongodb.Db('newDB', server, {});
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var movie = require('./routes/movie');
 
 var app = express();
 
@@ -32,7 +32,8 @@ app.use(function(req,res,next){
 })
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/movie', movie);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
