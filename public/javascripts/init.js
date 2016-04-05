@@ -14,6 +14,7 @@ function mostrarData(arr){
 	if (arr["Error"] == "Incorrect IMDb ID."){
 		$("#calificacion").hide();
 		$("#datos_pelicula").hide();
+		alert("La pelicula ingresada no existe o ya ha sido calificada");
 	}else{
 		$("#poster").attr("src",arr["Poster"]);
 		$("#año").text(arr["Year"]);
@@ -145,3 +146,21 @@ $(document).ready(function(){
 	cargar_datos();
 
 });
+
+
+function comparar_pelicula(){
+
+
+	
+	//Para devolver mi pelicula
+	var codIMDB = document.getElementById("codIMDB").value;
+	$.ajax({
+		url: "/movie/data?id=" + codIMDB,
+		complete:function(data){
+			console.log(data.responseJSON);
+			$.get("http://www.omdbapi.com/?i="+codIMDB+"&plot=short&r=json",function(data){
+				console.log(data);
+			});
+		}
+	});
+}

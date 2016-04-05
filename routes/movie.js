@@ -28,5 +28,11 @@ router.get('/data',function(req, res, next){
 });
 
 
+router.get('/comparate', function(req,res,next){
+
+	res.sendFile('comparacion.html',{root: path.join('public')});
+});
+
+
 
 module.exports = router;
