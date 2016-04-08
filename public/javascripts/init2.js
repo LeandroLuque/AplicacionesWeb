@@ -1,14 +1,5 @@
 /* Javascript */
  
-$(function () {
- 
-	$("#rateYo").rateYo({
-		rating: 0,
-    	halfStar: true
-	});
-});
-
-
 function mostrarData(arr){
 
 	if (arr["Error"] == "Incorrect IMDb ID."){
@@ -57,7 +48,7 @@ function calificar(){
 	var language = document.getElementById("lenguaje").innerHTML;
 	var country = document.getElementById("pais").innerHTML;
 	var year = document.getElementById("año").innerHTML;
-	
+	var poster = document.getElementById("poster").getAttribute("src");
 	var nuevo;
 
 	$.ajax({
@@ -72,6 +63,7 @@ function calificar(){
 				country: country,
 				year: year,
 				ranking:rating,
+				poster:poster
 			   }
 	});
 	$("#myModal").modal("show");
@@ -117,25 +109,26 @@ function limpiar(){
 }
 
 
+var datos_peliculas;
+
 function cargar_datos(){
 
 	$.ajax({
 		url: "/data",
 		complete:function(data){
 			var cont = JSON.parse(data.responseText);
+			datos_peliculas = cont;
 			for (i in cont){
-				var string = "<tr><td>" + cont[i].idMovie + "</td>" +
-								"<td>" + cont[i].title + "</td>" + 
-								"<td>" + cont[i].year + "</td>" + 
-								"<td>" + cont[i].genre + "</td>" + 
-								"<td>" + cont[i].runtime + "</td>" +
-								"<td>" + cont[i].language + "</td>" +
-								"<td>" + cont[i].country + "</td>" +
-								"<td>" + cont[i].ranking + "</td></tr>"
-				$("#mytable tr:last").after(string);
+				var string = '<div class="col-xs-5 col-md-3">' +
+				    '<a href="#">' +
+				      '<img class="img-rounded" src='+ cont[i].poster +' id='+cont[i].idMovie+
+			 					' onclick=mostrar_pelicula(this.id)>' +
+				    '</a> </div>';
+	  // <img src="+cont[i].poster+" id="+cont[i].idMovie+
+			// 					" onclick=mostrar_pelicula(this.id)>";
+				$("#covers").append(string);
 			}
-			$("#mytable").show();
-			$("#mytable").tablesorter();
+			
 		}
 	});
 
@@ -148,10 +141,36 @@ $(document).ready(function(){
 
 });
 
+function mostrar_pelicula(id){
+
+	
+	var datos_pelicula = datos_peliculas.filter(function(pelicula){
+		return pelicula.idMovie == id;
+	});
+	armarModal(datos_pelicula[0]);
+	$("#myModal").modal("show");
+}
+
+function armarModal(arr){
+
+	$("#poster").attr("src",arr.poster);
+	$("#year").text("");
+	$("#year").append("<strong>Año: </strong>"+arr.year);
+	$("#modalTitulo").text(arr.title);
+	$("#genre").text("");
+	$("#genre").append("<strong>Género: </strong>"+arr.genre);
+	$("#runtime").text("");
+	$("#runtime").append("<strong>Duración: </strong>"+arr.runtime);
+	$("#language").text("");
+	$("#language").append("<strong>Lenguaje: </strong>"+arr.language);
+	$("#country").text("");
+	$("#country").append("<strong>País: </strong>"+arr.country);
+	var $rateYo = $("#rateYo").rateYo();
+	$rateYo.rateYo("rating", parseFloat(arr.ranking));
+}
+
 
 function comparar_pelicula(){
-
-
 	
 	//Para devolver mi pelicula
 	var codIMDB = document.getElementById("codIMDB").value;

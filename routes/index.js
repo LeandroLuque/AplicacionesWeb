@@ -25,6 +25,7 @@ router.post('/',function(req,res){
 	var year = req.body.year;
 	var genre = req.body.genre;
 	var ranking = req.body.ranking;
+	var poster = req.body.poster;
 	var db = req.db;
 	db.open(function(error,client){
 		var collection = db.collection('peliculas');
@@ -36,7 +37,8 @@ router.post('/',function(req,res){
 			runtime: runtime,
 			language: language,
 			country: country,
-			ranking: ranking
+			ranking: ranking,
+			poster:poster
 		});
 		db.close();
 	});

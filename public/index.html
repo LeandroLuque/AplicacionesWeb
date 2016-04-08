@@ -1,109 +1,89 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title> Ponderador Peliculas </title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 	<link rel="stylesheet" href="stylesheets/jquery.rateyo.css"/>
-	<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
-	<link rel="stylesheet" type="text/css" href="stylesheets/bootswatch.css">
+	<style type="text/css">
+
+	body{
+		background-color: black;
+	}
+
+	.modal-body{
+		
+		height: 400px;
+	}
+
+	</style>
+
 
 </head>
 <body>
-	<div class="row">
-        <div class="col-lg-4">
-            <div class="bs-component">
-                <fieldset>
-                    <legend>Calificación de Película</legend>
-                </fieldset>
-                <div class="container">
-				<div class="row">
-				    <div class="col-md-6">
-				        <div id="custom-search-input">
-				            <div class="input-group col-md-12">
-				                <input type="text" id="codIMDB" class="form-control input-lg" placeholder="Identificador IMDb"/>
-				                <span class="input-group-btn">
-				                    <button class="btn btn-success btn-lg" type="button" id="btnBuscar" onclick="buscar()">
-				                        <i class="glyphicon glyphicon-plus"></i>
-				                    </button>
-				                    <button class="btn btn-danger btn-lg" type="button" id="btnLimpiar" onclick="limpiar()">
-				                		<i class="glyphicon glyphicon-remove"></i>
-				                	</button> 
-				                </span>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-         		</div>
-            </div>
-        </div>  
-    </div>
+
+	<!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#"><strong>Películas</strong></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="alta.html">Añadir Pelicula</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
     <br>
     <br>
-
-    <div class="row" id="datos_pelicula">
-    	<div class="col-lg-4">
-    		<div class="bs-component">
-    			<img class="img-rounded" id="poster">
-    		</div>
-    	</div>
-		<div class="col-lg-4">
-			<div class="bs-component">
-				<h4><strong>Título</strong></h4>
-				<p id="titulo"><p>
-				<h4><strong>Año</strong></h4>
-				<p id="año"><p>
-				<h4><strong>Duración</strong></h4>
-				<p id="duracion"><p>
-				<h4><strong>Género<strong></h4>
-				<p id="genero"><p>
-				<h4><strong>Lenguaje</strong></h4>
-				<p id="lenguaje"><p>
-				<h4><strong>País</strong></h4>
-				<p id="pais"><p>
-			</div>
-    	</div>
-    	
-    </div>
-
     <br>
-    <br>
-
-    <div id="calificacion">
-	    <div id="rateYo"></div>
-		<br>
-		<button id="btnCalificar" type="summit" class="btn btn-primary" onclick="calificar()">Calificar</button>
+	
+	<div class="row" id="covers">
 	</div>
 
-	<br>
-	<br>
 
-	<table id="mytable" class="table table-bordered">
-		<thead>
-			<tr>
-				<th> ID Pelicula (IMDb)</th>
-				<th> Titulo </th>
-				<th> Año </th>
-				<th> Género </th>
-				<th> Duración </th>
-				<th> Lenguaje </th>
-				<th> Pais </th>
-				<th> Calificación </th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
 
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h2 class="modal-title" id="modalTitulo"></h2>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="container col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img id="poster" style="height: 244.016px;
+								width: 160.375px;"/>
+						<br>
+						<br>
+						<div id="rateYo"></div>
+                    </div>
+
+                     <div class="col-md-6">
+                        <p id="year"></p>
+						<p id="genre"></p>
+						<p id="runtime"></p>
+						<p id="language"></p>
+						<p id="country"></p>
+						<br>
+						<button class="btn btn-primary"> Comparar</button>
+                     </div>
+                 </div>
+             </div>			
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 	<!-- Scripts -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
-	<!-- <script src="javascripts/jquery-2.2.2.min.jquerys"></script> -->
-  	<script src="javascripts/jquery.rateyo.js"></script>
-  	<!-- <script src="javascripts/jquery.tablesorter.js"></script>-->
-  	<script src="javascripts/init.js"></script>
-  	<!-- Latest compiled and minified JavaScript -->
+	<script src="javascripts/init2.js"></script>
+	<script src="javascripts/jquery.rateyo.js"></script>
+	<script src="javascripts/jquery.tablesorter.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 </body>
