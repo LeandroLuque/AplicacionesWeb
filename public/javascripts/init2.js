@@ -167,20 +167,19 @@ function armarModal(arr){
 	$("#country").append("<strong>País: </strong>"+arr.country);
 	var $rateYo = $("#rateYo").rateYo();
 	$rateYo.rateYo("rating", parseFloat(arr.ranking));
+	$("#buscar_punto").hide();
 }
 
 
-function comparar_pelicula(){
+function comparar_pelicula(url,id){
 	
 	//Para devolver mi pelicula
-	var codIMDB = document.getElementById("codIMDB").value;
-	$.ajax({
-		url: "/movie/data?id=" + codIMDB,
-		complete:function(data){
-			console.log(data.responseJSON);
-			$.get("http://www.omdbapi.com/?i="+codIMDB+"&plot=short&r=json",function(data){
+	url=+'?'+id;
+	$.get(url,function(data){
 				console.log(data);
-			});
-		}
 	});
+}
+
+function comparar(){
+	$("#buscar_punto").show();
 }
