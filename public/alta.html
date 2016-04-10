@@ -12,9 +12,10 @@
 		background-color: white;
 	}
 
-	legend{
+	h1{
 		color:white;
 	}
+
 
 	</style>
 
@@ -39,35 +40,21 @@
     <br>
     <br>
 
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="bs-component">
-                <fieldset>
-                    <legend>Calificación de Película</legend>
-                </fieldset>
-                <div class="container">
-				<div class="row">
-				    <div class="col-md-6">
-				        <div id="custom-search-input">
-				            <div class="input-group col-md-12">
-				                <input type="text" id="codIMDB" class="form-control input-lg" placeholder="Identificador IMDb"/>
-				                <span class="input-group-btn">
-				                    <button class="btn btn-success btn-lg" type="button" id="btnBuscar" onclick="buscar()">
-				                        <i class="glyphicon glyphicon-plus"></i>
-				                    </button>
-				                    <button class="btn btn-danger btn-lg" type="button" id="btnLimpiar" onclick="limpiar()">
-				                		<i class="glyphicon glyphicon-remove"></i>
-				                	</button> 
-				                </span>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-         		</div>
-            </div>
-        </div>  
+    <div class="container">
+    	<h1>Calificación de Película</h1>
+    	<div class="input-group col-md-6">
+	      <input type="text" id="codIMDB" class="form-control" placeholder="Identificador IMDb">
+	      <span class="input-group-btn">
+	        <button class="btn btn-success" type="button" id="btnBuscar" onclick="buscar()">
+                <i class="glyphicon glyphicon-plus"></i>&nbsp;
+            </button>
+            <button class="btn btn-danger" type="button" id="btnLimpiar" onclick="limpiar()">
+        		<i class="glyphicon glyphicon-remove"></i>&nbsp;
+        	</button> 
+	      </span>
+	    </div><!-- /input-group -->
     </div>
-
+    
     <br>
     <br>
 
@@ -100,14 +87,14 @@
     <br>
 
     <div id="calificacion">
-	    <div id="rateYo"></div>
+	    <div id="rateAlta"></div>
 		<br>
 		<button id="btnCalificar" type="summit" class="btn btn-primary" onclick="calificar()">Calificar</button>
 	</div>
 
 	<!-- Scripts -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
-	<script src="javascripts/init2.js"></script>
+	<script src="javascripts/init.js"></script>
 	<script src="javascripts/jquery.rateyo.js"></script>
 	<script src="javascripts/jquery.tablesorter.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
