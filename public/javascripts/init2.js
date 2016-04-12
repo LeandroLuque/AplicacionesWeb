@@ -153,6 +153,9 @@ function mostrar_pelicula(id){
 
 function armarModal(arr){
 
+	$("#codigoIMBD").text("");
+	$("#codigoIMBD").append(arr.idMovie);
+
 	$("#poster").attr("src",arr.poster);
 	$("#year").text("");
 	$("#year").append("<strong>Año: </strong>"+arr.year);
@@ -166,20 +169,46 @@ function armarModal(arr){
 	$("#country").text("");
 	$("#country").append("<strong>País: </strong>"+arr.country);
 	var $rateYo = $("#rateYo").rateYo();
-	$rateYo.rateYo("rating", parseFloat(arr.ranking));
+	$rateYo.rateYo("option","maxValue", 10);
+	$rateYo.rateYo("rating", parseFloat(arr.ranking)); //ver
 	$("#buscar_punto").hide();
 }
 
 
-function comparar_pelicula(url,id){
+function comparar_pelicula(){
 	
 	//Para devolver mi pelicula
-	url=+'?'+id;
-	$.get(url,function(data){
-				console.log(data);
-	});
+	var url =document.getElementById("url_publicacion").value;
+	var codigo = document.getElementById("codigoIMBD").innerHTML;
+	var nombreURL = document.getElementById("url_publicacion").value;
+	if (url == ""){
+		alert("Se tomará:http://www.omdbapi.com");
+		nombreURL = "http://www.omdbapi.com";
+		url = "http://www.omdbapi.com/?i="+codigo+"&plot=short&r=json";
+	}else{
+		url = "http://" + url + "/"+codigo; //se debería pedir el parámetro id?	
+	}
+	//xmlhttp = new XMLHttpRequest();
+	//marcar con rojo campo, para mostrar error en vez de los alert
+	$("#urlComparador").text("Puntaje de:" + nombreURL);
+	$("#urlComparador").show();
+	$.get(url, obtieneRanking,"json");
 }
 
+function obtieneRanking(data,status){
+	if (status == "success"){
+		//alert(data["imdbRating"]);
+		$("#rateYo2").rateYo({
+			maxValue: 10,
+			rating: data["imdbRating"], //debería normalizarse, o pasarse por paráemtros
+			readOnly: true
+		});
+		//ver configuración de los rating, cuantas estrellas
+	}else{
+		alert(status);
+		$("#urlComparador").hide();
+	}
+}
 function comparar(){
 	$("#buscar_punto").show();
 }
