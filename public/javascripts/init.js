@@ -39,7 +39,7 @@ function buscar(){
 
 function calificar(){
 
-	var $rateYo = $("#rateYo").rateYo();
+	var $rateYo = $("#rateAlta").rateYo();
 	var rating = $rateYo.rateYo("rating");
 	var codIMDB = document.getElementById("codIMDB").value;
 	var title = document.getElementById("titulo").innerHTML;
@@ -169,7 +169,6 @@ function armarModal(id,arr){
 	$rateYo.rateYo("rating", parseFloat(arr.ranking));
 }
 
-
 function comparar_pelicula(){
 	
 	//Para devolver mi pelicula
@@ -184,3 +183,11 @@ function comparar_pelicula(){
 		}
 	});
 }
+
+$(function () {
+ 
+	$("#rateAlta").rateYo({
+		rating: 0,
+    	halfStar: true
+	});
+})

@@ -29,7 +29,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="alta.html">Añadir Pelicula</a></li>
+            <li><a href="alta.html">Añadir Pelicula</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -39,7 +39,7 @@
     <br>
     <br>
 	
-	<div class="row" id="covers">
+	<div id="covers">
 	</div>
 
 
@@ -71,9 +71,20 @@
 						<p id="country"></p>
 						<p id="codIMDB"></p>
 						<br>
-						<button class="btn btn-primary"> Comparar</button>
-                     </div>
-                 </div>
+						<button class="btn btn-primary" id="btncomparar" onclick="comparar()"> Comparar</button>
+						<br><br>
+						<div class="buscar_punto" id="buscar_punto">
+							<div id="custom-search-input">
+				            	<div class="input-group col-md-12">
+				                	<input type="text" id="codIMDB" class="form-control input-xs" placeholder="Punto publicación"/>
+				               		 <span class="input-group-btn">
+				                     <button class="btn btn-success btn-s" type="button" id="" 
+				                     	onclick="comparar_pelicula($(#codIMDB).val(), )">
+				                        <i class="glyphicon glyphicon-search"></i>
+				                     </button>
+								</div>
+                     		</div>
+                		</div>
              </div>			
 	      </div>
 	    </div>
