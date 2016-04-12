@@ -165,7 +165,7 @@ function armarModal(id,arr){
 	$("#country").append("<strong>País: </strong>"+arr.country);
 	$("#codIMDB").text("");
 	$("#codIMDB").append("<strong>Código IMDb: </strong>"+id);
-	var $rateYo = $("#rateYo").rateYo();
+	var $rateYo = $("#rateYo").rateYo(readOnly:True);
 	$rateYo.rateYo("rating", parseFloat(arr.ranking));
 }
 
