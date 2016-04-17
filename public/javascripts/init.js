@@ -34,7 +34,6 @@ function buscar(){
 		xmlhttp.open("GET", url, true);
 		xmlhttp.send();
 	}
-
 }
 
 function calificar(){
@@ -49,7 +48,6 @@ function calificar(){
 	var country = document.getElementById("pais").innerHTML;
 	var year = document.getElementById("año").innerHTML;
 	var poster = document.getElementById("poster").getAttribute("src");
-	var nuevo;
 
 	$.ajax({
 		type: "POST",
@@ -66,40 +64,13 @@ function calificar(){
 				poster:poster
 			   }
 	});
-	$("#myModal").modal("show");
 	
-	
-	nuevo = {
-		"id": codIMDB,
-		"title": title,
-		"year": year,
-		"genre": genre,
-		"runtime": runtime,
-		"language": language,
-		"country": country,
-		"ranking": rating
-	}
-
-	actualizar(nuevo)
 	limpiar();
-	
+	var modal = $("#modal");
+	modal.find(".modal-title").text("Éxito");
+	modal.find(".modal-body p").text("La pelicula ha sido cargada con éxito");
+	modal.modal("show");
 }
-
-function actualizar(arreglo){
-
-	console.log(arreglo["id"]);
-
-	var string = "<tr><td>" + arreglo["id"] + "</td>" +
-					"<td>" + arreglo["title"] + "</td>" + 
-					"<td>" + arreglo["year"] + "</td>" + 
-					"<td>" + arreglo["genre"] + "</td>" + 
-					"<td>" + arreglo["runtime"] + "</td>" +
-					"<td>" + arreglo["language"] + "</td>" +
-					"<td>" + arreglo["country"] + "</td>" +
-					"<td>" + arreglo["ranking"] + "</td></tr>"
-	$("#mytable tr:last").after(string);
-}
-
 
 function limpiar(){
 
@@ -118,25 +89,23 @@ function cargar_datos(){
 		complete:function(data){
 			var cont = JSON.parse(data.responseText);
 			datos_peliculas = cont;
+			$("#covers").empty();
 			for (i in cont){
 				var string = '<div class="col-xs-6 col-md-3">' +
-				    '<a href="#">' +
-				      '<img class="img-rounded" src='+ cont[i].poster +' id='+cont[i].idMovie+
-			 					' onclick=mostrar_pelicula(this.id)>' +
-				    '</a> </div>';
+					'<a class="responsive">' +
+				    '<img class="img-rounded" width="310px" height="410px" src="' + cont[i].poster + 
+				    '" id="' + cont[i].idMovie + '" onclick="mostrar_pelicula(this.id)">' +
+				    '</a></div>';
 				$("#covers").append(string);
 			}
 			
 		}
 	});
-
 }
-
 
 $(document).ready(function(){
 
 	cargar_datos();
-
 });
 
 function mostrar_pelicula(id){
@@ -151,6 +120,9 @@ function mostrar_pelicula(id){
 
 function armarModal(id,arr){
 
+	$("#codigoIMBD").text("");
+ 	$("#codigoIMBD").append(arr.idMovie);
+ 	
 	$("#poster").attr("src",arr.poster);
 	$("#year").text("");
 	$("#year").append("<strong>Año: </strong>"+arr.year);
@@ -165,7 +137,7 @@ function armarModal(id,arr){
 	$("#country").append("<strong>País: </strong>"+arr.country);
 	$("#codIMDB").text("");
 	$("#codIMDB").append("<strong>Código IMDb: </strong>"+id);
-	var $rateYo = $("#rateYo").rateYo(readOnly:True);
+	var $rateYo = $("#rateYo").rateYo({readOnly:true});
 	$rateYo.rateYo("rating", parseFloat(arr.ranking));
 }
 
@@ -191,3 +163,79 @@ $(function () {
     	halfStar: true
 	});
 })
+
+function comparar_pelicula_1(url){
+	
+	//Para devolver mi pelicula
+	// var url =document.getElementById("url_publicacion").value;
+	// var codigo = document.getElementById("codigoIMBD").innerHTML;
+	// var nombreURL = document.getElementById("url_publicacion").value;
+	// if (url == ""){
+	// 	alert("Se tomará:http://www.omdbapi.com");
+	// 	nombreURL = "http://www.omdbapi.com";
+	// 	url = "http://www.omdbapi.com/?i="+codigo+"&plot=short&r=json";
+	// }else{
+	// 	url = "http://" + url + "/"+codigo; //se debería pedir el parámetro id?	
+	// }
+	//xmlhttp = new XMLHttpRequest();
+	//marcar con rojo campo, para mostrar error en vez de los alert
+	// $("#urlComparador").text("Puntaje de:" + nombreURL);
+	// $("#urlComparador").show();
+	
+	$.ajax({
+		url: url,
+		method:"GET",
+		success:function obtieneRanking(data, status){
+			if (status == "success"){
+			alert("estoy");
+			//alert(data["imdbRating"]);
+			$("#rateYo2").rateYo({
+				maxValue: 5,
+				rating: data["ponderacion"], //debería normalizarse, o pasarse por paráemtros
+				readOnly: true
+			});
+			//ver configuración de los rating, cuantas estrellas
+			}else{
+				alert(status);
+				$("#urlComparador").hide();
+		}
+	}
+
+	});
+	
+}
+  
+// function obtieneRanking(data,status){
+// 	if (status == "success"){
+// 		//alert(data["imdbRating"]);
+// 		$("#rateYo2").rateYo({
+// 			maxValue: 10,
+// 			rating: data["imdbRating"], //debería normalizarse, o pasarse por paráemtros
+// 			readOnly: true
+// 		});
+// 		//ver configuración de los rating, cuantas estrellas
+// 	}else{
+// 		alert(status);
+// 		$("#urlComparador").hide();
+// 	}
+// }
+
+function comparar(){
+	var codigo = document.getElementById("codigoIMBD").innerHTML;
+	var opcion = $("#grupos").val();
+	var ip = prompt("Ingrese IP", "Ejemplo 192.168.0.2");
+	alert(ip);
+	//validar direccion ip ingresada
+	var url = ip;
+	switch(opcion){
+		case "GRUPO ANDRES":url = "http://" + url + "/pelicula/" + cod +"/comparar";
+							comparar_pelicula_1(url);							
+							break;
+		case "GRUPO BRUNO": comparar_pelicula(url);
+							break;
+		case "GRUPO DIEGO": url = "http://" + url +"/Nueva%20carpeta/buscapeliculas.php/?id=" + codigo;
+							comparar_pelicula_1(url);
+							break;
+		default: break;
+	}
+}
