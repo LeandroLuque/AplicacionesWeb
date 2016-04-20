@@ -139,6 +139,7 @@ function armarModal(id,arr){
 	$("#codIMDB").append("<strong>Código IMDb: </strong>"+id);
 	var $rateYo = $("#rateYo").rateYo({readOnly:true});
 	$rateYo.rateYo("rating", parseFloat(arr.ranking));
+	$("#rateYo2").hide();
 }
 
 function comparar_pelicula(){
@@ -164,77 +165,59 @@ $(function () {
 	});
 })
 
-function comparar_pelicula_1(url){
-	
-	//Para devolver mi pelicula
-	// var url =document.getElementById("url_publicacion").value;
-	// var codigo = document.getElementById("codigoIMBD").innerHTML;
-	// var nombreURL = document.getElementById("url_publicacion").value;
-	// if (url == ""){
-	// 	alert("Se tomará:http://www.omdbapi.com");
-	// 	nombreURL = "http://www.omdbapi.com";
-	// 	url = "http://www.omdbapi.com/?i="+codigo+"&plot=short&r=json";
-	// }else{
-	// 	url = "http://" + url + "/"+codigo; //se debería pedir el parámetro id?	
-	// }
-	//xmlhttp = new XMLHttpRequest();
-	//marcar con rojo campo, para mostrar error en vez de los alert
-	// $("#urlComparador").text("Puntaje de:" + nombreURL);
-	// $("#urlComparador").show();
+function comparar_pelicula(url){
 	
 	$.ajax({
 		url: url,
-		method:"GET",
-		success:function obtieneRanking(data, status){
+		type:"GET",
+		crossDomain:true,
+		complete:function(data,status){
 			if (status == "success"){
-			alert("estoy");
-			//alert(data["imdbRating"]);
-			$("#rateYo2").rateYo({
-				maxValue: 5,
-				rating: data["ponderacion"], //debería normalizarse, o pasarse por paráemtros
-				readOnly: true
-			});
-			//ver configuración de los rating, cuantas estrellas
-			}else{
-				alert(status);
-				$("#urlComparador").hide();
+				set_rating_grupo(JSON.parse(data.responseText)["rating"])
+			}
 		}
-	}
-
-	});
-	
+	});	
 }
-  
-// function obtieneRanking(data,status){
-// 	if (status == "success"){
-// 		//alert(data["imdbRating"]);
-// 		$("#rateYo2").rateYo({
-// 			maxValue: 10,
-// 			rating: data["imdbRating"], //debería normalizarse, o pasarse por paráemtros
-// 			readOnly: true
-// 		});
-// 		//ver configuración de los rating, cuantas estrellas
-// 	}else{
-// 		alert(status);
-// 		$("#urlComparador").hide();
-// 	}
-// }
+
+function comparar_pelicula_enteros(url){
+
+	$.ajax({
+		url: url,
+		type:"GET",
+		crossDomain:true,
+		complete:function(data,status){
+			if (status == "success"){
+				set_rating_grupo(JSON.parse(data.responseText)["rating"]/2);
+			}
+		}
+	});	
+}
+
+
+function set_rating_grupo(rating){
+	$("#rateYo2").rateYo({
+		maxValue: 5,
+		rating: rating,
+		readOnly: true,
+		ratedFill: "red"
+	});
+	$("#rateYo2").show();
+}
 
 function comparar(){
-	var codigo = document.getElementById("codigoIMBD").innerHTML;
+	var cod = document.getElementById("codigoIMBD").innerHTML;
 	var opcion = $("#grupos").val();
 	var ip = prompt("Ingrese IP", "Ejemplo 192.168.0.2");
-	alert(ip);
 	//validar direccion ip ingresada
 	var url = ip;
 	switch(opcion){
-		case "GRUPO ANDRES":url = "http://" + url + "/pelicula/" + cod +"/comparar";
-							comparar_pelicula_1(url);							
+		case "GRUPO 1":url = "http://" + url + "/pelicula/" + cod +"/comparar";
+							comparar_pelicula_enteros(url);							
 							break;
-		case "GRUPO BRUNO": comparar_pelicula(url);
+		case "GRUPO 4": comparar_pelicula("http://" + url + "/movies/?id=" + cod);
 							break;
-		case "GRUPO DIEGO": url = "http://" + url +"/Nueva%20carpeta/buscapeliculas.php/?id=" + codigo;
-							comparar_pelicula_1(url);
+		case "GRUPO 3": url = "http://" + url +"/Nueva%20carpeta/buscapeliculas.php/?id=" + codigo;
+							comparar_pelicula(url);
 							break;
 		default: break;
 	}
