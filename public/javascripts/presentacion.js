@@ -118,7 +118,23 @@ function set_rating_grupo(rating){
 		readOnly: true,
 		ratedFill: "red"
 	});
-	$("#rateYo2").show();
+	
+	var punt =$("#rateYo").rateYo("rating");
+	var punt2 =$("#rateYo2").rateYo("rating");
+	var grupo = $("#grupos").val();
+	if (punt2 > 0){
+
+		$("#rateYo2").show();
+		$("#resultado").append("<img src=/images/trofeo.png style=width:32px height:32px;/>");
+		if (punt2>punt)
+			$("#resultado").append("<strong>Ganó " + grupo +"</strong>" );
+		else
+			$("#resultado").append("<p>Gananos nosotros!</p>" );
+		
+	}else{
+		$("#resultado").text("No posee la película");
+	}
+
 }
 
 function comparar(){
