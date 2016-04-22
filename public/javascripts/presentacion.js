@@ -60,7 +60,7 @@ function armarModal(id,arr){
 	$("#rateYo2").hide();
 }
 
-function comparar_pelicula(url){
+function comparar_pelicula_4(url){
 	
 	$.ajax({
 		url: url,
@@ -68,7 +68,7 @@ function comparar_pelicula(url){
 		crossDomain:true,
 		complete:function(data,status){
 			if (status == "success"){
-				if (data.length == 0)
+				if (data.length != 0)
 					set_rating_grupo(JSON.parse(data.responseText)["rating"]);
 				else
 					set_rating_grupo(0);	
@@ -77,7 +77,7 @@ function comparar_pelicula(url){
 	});	
 }
 
-function comparar_pelicula_enteros(url){
+function comparar_pelicula_1(url){
 
 	$.ajax({
 		url: url,
@@ -85,14 +85,32 @@ function comparar_pelicula_enteros(url){
 		crossDomain:true,
 		complete:function(data,status){
 			if (status == "success"){
-				if (data.length == 0)
-					set_rating_grupo(JSON.parse(data.responseText)["rating"]/2);
+				if (data.length != 0)
+					set_rating_grupo(JSON.parse(data.responseText)["ponderacion"]/2);
 				else
 					set_rating_grupo(0);
 			}
 		}
 	});	
 }
+
+function comparar_pelicula_3(url){
+
+	$.ajax({
+		url: url,
+		type:"GET",
+		crossDomain:true,
+		complete:function(data,status){
+			if (status == "success"){
+				if (data.length != 0)
+					set_rating_grupo(JSON.parse(data.responseText)["ponderacion"]);
+				else
+					set_rating_grupo(0);
+			}
+		}
+	});	
+}
+
 
 function set_rating_grupo(rating){
 	$("#rateYo2").rateYo({
@@ -109,11 +127,14 @@ function comparar(){
 	var opcion = $("#grupos").val();
 	var ip = prompt("Ingrese IP", "Ejemplo 192.168.0.2");
 	switch(opcion){
-		case "GRUPO 1": comparar_pelicula_enteros("http://" + ip + "/pelicula/" + cod +"/comparar");							
+		//Grupo Andres
+		case "GRUPO 1": comparar_pelicula_1("http://" + ip + "/pelicula/" + cod +"/comparar");							
 						break;					
-		case "GRUPO 4": comparar_pelicula("http://" + ip + "/movies/?id=" + cod);
+		//Grupo Bruno
+		case "GRUPO 4": comparar_pelicula_4("http://" + ip + "/movies/?id=" + cod);
 						break;
-		case "GRUPO 3": comparar_pelicula("http://" + ip +"/Nueva%20carpeta/buscapeliculas.php/?id=" + cod);
+		//Grupo Diego
+		case "GRUPO 3": comparar_pelicula_3("http://" + ip +"/Nueva%20carpeta/buscapeliculas.php/?id=" + cod);
 						break;
 		default: break;
 	}
