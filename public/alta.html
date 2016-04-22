@@ -54,7 +54,7 @@
     <br>
     <br>
 
-    <div class="row" id="datos_pelicula">
+    <div class="container" id="datos_pelicula">
     	<div class="col-lg-4">
     		<div class="bs-component">
     			<img class="img-rounded" id="poster">
@@ -74,20 +74,12 @@
 				<p id="lenguaje"><p>
 				<h4><strong>País</strong></h4>
 				<p id="pais"><p>
+				<div id="rateAlta"></div>
+				<br>
+				<button id="btnCalificar" type="summit" class="btn btn-primary" onclick="calificar()">Calificar</button>
 			</div>
     	</div>
-    	
     </div>
-
-    <br>
-    <br>
-
-    <div id="calificacion">
-	    <div id="rateAlta"></div>
-		<br>
-		<button id="btnCalificar" type="summit" class="btn btn-primary" onclick="calificar()">Calificar</button>
-	</div>
-
 
 	<!--Modal-->
 	<div class="modal fade" id="modal">
@@ -100,9 +92,6 @@
 		  <div class="modal-body">
 		    <p></p>
 		  </div>
-		  <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
 		</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
