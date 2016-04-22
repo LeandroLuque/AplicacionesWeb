@@ -111,7 +111,6 @@ function comparar_pelicula_3(url){
 	});	
 }
 
-
 function set_rating_grupo(rating){
 	$("#rateYo2").rateYo({
 		maxValue: 5,
