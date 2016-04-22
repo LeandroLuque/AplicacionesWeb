@@ -18,15 +18,17 @@ router.get('/data',function(req, res, next){
 
 		collection = db.collection('peliculas');
 		collection.find({_id: id}).toArray(function(err, docs) {
-			if (docs.length == 0){
-				res.json({});
-			}else{
-				db.close();
-				var data = {
-						 	"idMovie" : docs[0]["_id"],
-						 	"ranking": docs[0]["ranking"]
-						   }
-				res.json(data);	
+			if (typeof docs != "undefined"){
+				if (docs.length == 0){
+					res.json({});
+				}else{
+					db.close();
+					var data = {
+							 	"idMovie" : docs[0]["_id"],
+							 	"ranking": docs[0]["ranking"]
+							   }
+					res.json(data);	
+				}
 			}
 		});
 	});
