@@ -4,17 +4,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="stylesheets/jquery.rateyo.css"/>
 	<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
-	<style type="text/css">
-
-	body{
-		background-color: black;
-	}
-
-	h1{
-		color:white;
-	}
-
-	</style>
 
 </head>
 <body>
@@ -33,6 +22,8 @@
       </div>
     </nav>
 
+    <br>
+    <br>
     <br>
     <br>
 
@@ -54,32 +45,28 @@
     <br>
     <br>
 
-    <div class="container" id="datos_pelicula">
-    	<div class="col-lg-4">
-    		<div class="bs-component">
-    			<img class="img-rounded" id="poster">
-    		</div>
-    	</div>
-		<div class="col-lg-4">
-			<div class="bs-component">
-				<h4><strong>Título</strong></h4>
-				<p id="titulo"><p>
-				<h4><strong>Año</strong></h4>
-				<p id="año"><p>
-				<h4><strong>Duración</strong></h4>
-				<p id="duracion"><p>
-				<h4><strong>Género<strong></h4>
-				<p id="genero"><p>
-				<h4><strong>Lenguaje</strong></h4>
-				<p id="lenguaje"><p>
-				<h4><strong>País</strong></h4>
-				<p id="pais"><p>
-				<div id="rateAlta"></div>
-				<br>
-				<button id="btnCalificar" type="summit" class="btn btn-primary" onclick="calificar()">Calificar</button>
-			</div>
-    	</div>
-    </div>
+	<div class="container" id="datos_pelicula">
+		<div class="col-md-4">
+			<img class="img-rounded" id="poster">
+		</div>
+		<div class="col-md-4">
+			<h4><strong>Título</strong></h4>
+			<p id="titulo" class="info"><p>
+			<h4><strong>Año</strong></h4>
+			<p id="año" class="info"><p>
+			<h4><strong>Duración</strong></h4>
+			<p id="duracion" class="info"><p>
+			<h4><strong>Género<strong></h4>
+			<p id="genero" class="info"><p>
+			<h4><strong>Lenguaje</strong></h4>
+			<p id="lenguaje" class="info"><p>
+			<h4><strong>País</strong></h4>
+			<p id="pais" class="info"><p>
+			<div id="rateAlta"></div>
+			<br>
+			<button id="btnCalificar" type="summit" class="btn btn-primary" onclick="calificar()">Calificar</button>
+		</div>
+	</div>
 
 	<!--Modal-->
 	<div class="modal fade" id="modal">
@@ -98,7 +85,7 @@
 
 	<!-- Scripts -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
-	<script src="javascripts/init.js"></script>
+	<script src="javascripts/alta.js"></script>
 	<script src="javascripts/jquery.rateyo.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 

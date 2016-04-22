@@ -1,8 +1,19 @@
 body {
-	padding: 50px;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color: black;
 }
 
+h1{
+	color:white;
+}
+
+h4{
+	color:gray;
+}
+
+.info{
+	color:white;
+}
 
 #datos_pelicula{
 	display: none;
@@ -14,4 +25,8 @@ body {
 
 #mytable{
 	display: none;
+}
+
+#covers{
+	margin-top: 60px;
 }
