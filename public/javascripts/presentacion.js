@@ -112,9 +112,35 @@ function comparar_pelicula_3(url){
 }
 
 function set_rating_grupo(rating){
+<<<<<<< HEAD
+	$("#rateYo2").rateYo({
+		maxValue: 5,
+		rating: rating,
+		readOnly: true,
+		ratedFill: "red"
+	});
+	
+	var punt =$("#rateYo").rateYo("rating");
+	var punt2 =$("#rateYo2").rateYo("rating");
+	var grupo = $("#grupos").val();
+	if (punt2 > 0){
+
+		$("#rateYo2").show();
+		$("#resultado").append("<img src=/images/trofeo.png style=width:32px height:32px;/>");
+		if (punt2>punt)
+			$("#resultado").append("<strong>Ganó " + grupo +"</strong>" );
+		else
+			$("#resultado").append("<p>Gananos nosotros!</p>" );
+		
+	}else{
+		$("#resultado").text("No posee la película");
+	}
+
+=======
 	var $rateYo = $("#rateYo2").rateYo({readOnly:true,ratedFill:"red",maxValue:5});
 	$rateYo.rateYo("rating", rating);
 	$("#rateYo2").show();
+>>>>>>> 2bee33b796da7c33d8a4d7621ab67769708fe72d
 }
 
 function comparar(){
