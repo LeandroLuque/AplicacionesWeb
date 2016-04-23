@@ -49,7 +49,12 @@ function calificar(){
 	var rating = $rateYo.rateYo("rating");
 	
 	if (rating == 0){
-		alert("La calificación debe ser mayor a cero");
+		var modal = $("#modal");
+		modal.find(".modal-title").text("Error");
+		modal.find(".modal-body p").text("La calificación debe ser mayor a cero");
+		modal.find(".modal-header").attr({"style":"background-color: #c77270"});
+		modal.find("h4").attr({"style":"color: black"});
+		modal.modal("show");
 	}else{
 		var codIMDB = document.getElementById("codIMDB").value;
 		var title = document.getElementById("titulo").innerHTML;
@@ -80,12 +85,14 @@ function calificar(){
 					modal.find(".modal-title").text("Error");
 					modal.find(".modal-body p").text("La pelicula ya ha sido calificada");
 					modal.find(".modal-header").attr({"style":"background-color: #c77270"});
+					modal.find("h4").attr({"style":"color: black"});
 					modal.modal("show");
 				}else{
 					limpiar();
 					modal.find(".modal-title").text("Éxito");
 					modal.find(".modal-body p").text("La pelicula ha sido cargada con éxito");
 					modal.find(".modal-header").attr({"style":"background-color: #bce8f1"});
+					modal.find("h4").attr({"style":"color: black"});
 					modal.modal("show");
 				}
 			}
